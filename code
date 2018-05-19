@@ -1,0 +1,55 @@
+dark=imread('Fig0635darkstream.tif');
+dark1=dark;
+dark2=dark;
+R=dark(:,:,1);
+G=dark(:,:,2);
+B=dark(:,:,3);
+eq_R=histeq(R);
+eq_G=histeq(G);
+eq_B=histeq(B);
+dark1(:,:,1)=eq_R;
+dark1(:,:,2)=eq_G;
+dark1(:,:,3)=eq_B;
+
+Rgram=imhist(eq_R);
+Ggram=imhist(eq_G);
+Bgram=imhist(eq_B);
+hgram=(Rgram+Ggram+Bgram)/3;
+Rgram=imhist(eq_R);
+Ggram=imhist(eq_R);
+Bgram=imhist(eq_R);
+hgram=(Rgram+Ggram+Bgram)/3;
+ 
+eq_R1=histeq(R,hgram);
+eq_G1=histeq(G,hgram);
+eq_B1=histeq(B,hgram);
+dark2(:,:,1)=eq_R1;
+dark2(:,:,2)=eq_G1;
+dark2(:,:,3)=eq_B1;
+ 
+subplot 121
+imshow(dark)
+title('各通道分别均衡化后图像')
+subplot 121
+imhist(R)
+title('R分量直方图')
+subplot 122
+imhist(eq_R)
+title('R分量均衡化后直方图')
+figure(2)
+subplot 121
+imhist(R)
+title('G分量直方图')
+subplot 122
+imhist(eq_R)
+title('G分量均衡化后直方图')
+figure(3)
+subplot 121
+imhist(R)
+title('B分量直方图')
+subplot 122
+imhist(eq_R)
+title('B分量均衡化后直方图')
+figure(2)
+imshow(dark)
+title('各通道均衡化后图像')
